@@ -1,7 +1,7 @@
-import { Layout, Menu, theme } from "antd";
+import { Layout, theme } from "antd";
 import { Outlet } from "react-router-dom";
-import { adminSidebarItems } from "../../routes/admin.routes";
-const { Header, Content, Footer, Sider } = Layout;
+import Sidebar from "./Sidebar";
+const { Header, Content } = Layout;
 
 const MainLayout = () => {
   const {
@@ -17,37 +17,7 @@ const MainLayout = () => {
           paddingBottom: "4px",
         }}
       >
-        <Sider
-          style={{ borderRadius: "8px" }}
-          breakpoint="lg"
-          collapsedWidth="0"
-          onBreakpoint={(broken) => {
-            console.log(broken);
-          }}
-          onCollapse={(collapsed, type) => {
-            console.log(collapsed, type);
-          }}
-        >
-          <div>
-            <h1
-              style={{
-                color: "white",
-                fontSize: "17px",
-                textAlign: "center",
-                paddingTop: "24px",
-                paddingBottom: "8px",
-              }}
-            >
-              UNIMAN DASH
-            </h1>
-          </div>
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={["4"]}
-            items={adminSidebarItems}
-          />
-        </Sider>
+        <Sidebar />
         <Layout>
           <Header
             style={{
@@ -78,11 +48,11 @@ const MainLayout = () => {
               <Outlet />
             </div>
           </Content>
-          <Footer
+          {/* <Footer
             style={{ textAlign: "center", margin: "0px", padding: "0px" }}
           >
             Ant Design ©{new Date().getFullYear()} Created by Ant UED
-          </Footer>
+          </Footer> */}
         </Layout>
       </Layout>
     </div>
