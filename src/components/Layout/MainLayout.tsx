@@ -1,12 +1,19 @@
 import { Layout, theme } from "antd";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { useAppDispatch } from "../../redux/hooks";
+import { logOut } from "../../redux/features/auth/authSlice";
 const { Header, Content } = Layout;
 
 const MainLayout = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    dispatch(logOut());
+  };
   return (
     <div>
       <Layout
@@ -21,6 +28,9 @@ const MainLayout = () => {
         <Layout>
           <Header
             style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               padding: "0px",
               marginBottom: "0px",
               marginTop: "0px",
@@ -30,12 +40,17 @@ const MainLayout = () => {
               marginLeft: "14px",
               marginRight: "14px",
               borderRadius: "8px",
-              textAlign: "center",
-              fontSize: "18px",
             }}
           >
-            University Management Project
+            <p className="pl-12 text-lg">University Management Project</p>
+            <button
+              onClick={handleLogout}
+              className="bg-red-400 text-white border-none px-4 py-1 rounded-sm cursor-pointer font-bold mr-4"
+            >
+              logout
+            </button>
           </Header>
+
           <Content style={{ margin: "16px 16px 0" }}>
             <div
               style={{

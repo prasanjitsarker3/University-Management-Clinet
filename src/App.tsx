@@ -1,9 +1,12 @@
 import MainLayout from "./components/Layout/MainLayout";
+import ProtectedRoute from "./components/Layout/ProtectedRoute";
 
 const App = () => {
   return (
     <div>
-      <MainLayout />
+      <ProtectedRoute>
+        <MainLayout />
+      </ProtectedRoute>
     </div>
   );
 };
