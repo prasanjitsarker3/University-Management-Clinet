@@ -1,26 +1,25 @@
-import { Form, Input } from "antd";
+import { Form, Select } from "antd";
 import { Controller } from "react-hook-form";
 
-type TInputProps = {
-  type: string;
+type TPHSelectProps = {
+  label: string;
   name: string;
-  label?: string;
-  placeholder?: string;
+  options: { value: string; label: string; disabled?: boolean }[];
+  placeHolder: string;
 };
 
-const PHInput = ({ type, name, label, placeholder }: TInputProps) => {
+const PHSelect = ({ label, name, options, placeHolder }: TPHSelectProps) => {
   return (
-    <div className=" mb-5 text-lg">
-      {/* {label ? label : null} */}
+    <div>
       <Controller
         name={name}
         render={({ field, fieldState: { error } }) => (
           <Form.Item label={label}>
-            <Input
+            <Select
               {...field}
-              type={type}
-              id={name}
-              placeholder={placeholder}
+              style={{ width: "100%" }}
+              placeholder={placeHolder}
+              options={options}
               size="large"
             />
             {error && <small className=" text-red-500">{error.message}</small>}
@@ -31,4 +30,4 @@ const PHInput = ({ type, name, label, placeholder }: TInputProps) => {
   );
 };
 
-export default PHInput;
+export default PHSelect;

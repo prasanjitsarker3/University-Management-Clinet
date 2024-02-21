@@ -18,7 +18,7 @@ const MainLayout = () => {
     <div>
       <Layout
         style={{
-          height: "100vh",
+          height: "100%",
           paddingLeft: "6px",
           paddingTop: "4px",
           paddingBottom: "4px",

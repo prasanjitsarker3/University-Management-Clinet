@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { logOut, setUser } from "../features/auth/authSlice";
 import { RootState } from "./../store";
 import {
@@ -27,6 +28,13 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
+  if (result?.error?.status === 404) {
+    //Code Chatgpt can't clear
+    const errorMessage = (result?.error?.data as { message?: string })?.message;
+    if (errorMessage) {
+      toast.error(errorMessage);
+    }
+  }
   if (result?.error?.status === 401) {
     console.log("Sending Refresh Token");
     const res = await fetch("http://localhost:5000/api/v1/auth/refresh-token", {
