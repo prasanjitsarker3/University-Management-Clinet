@@ -32,14 +32,14 @@ const Sidebar = () => {
   }
 
   return (
-    <div>
+    <div className="">
       <Sider
         style={{
           borderRadius: "8px",
           height: "99vh",
           position: "sticky",
-          // top: "0",
-          // left: "0",
+          top: "0",
+          left: "0",
         }}
         breakpoint="lg"
         collapsedWidth="0"

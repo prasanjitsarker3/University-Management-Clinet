@@ -1,3 +1,5 @@
+import { TReduxResponse } from "../../../../Types/gobalErrorHandler";
+import { TTAcademicDepartment } from "../../../../pages/Admin/AcademicManagement/AcademicDepartment/AcademicDepartment";
 import { baseApi } from "../../../api/baseApi";
 
 const academicDepartment = baseApi.injectEndpoints({
@@ -9,7 +11,22 @@ const academicDepartment = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    getAllAcademicDepartment: builder.query({
+      query: () => ({
+        url: "/academic-departments",
+        method: "GET",
+      }),
+      transformResponse: (response: TReduxResponse<TTAcademicDepartment>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
   }),
 });
 
-export const { useCreateAcademicDepartmentMutation } = academicDepartment;
+export const {
+  useCreateAcademicDepartmentMutation,
+  useGetAllAcademicDepartmentQuery,
+} = academicDepartment;

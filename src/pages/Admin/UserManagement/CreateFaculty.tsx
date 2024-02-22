@@ -1,6 +1,6 @@
 import { FieldValues } from "react-hook-form";
-import PHForm from "../../components/form/PHForm";
-import PHInput from "../../components/form/PHInput";
+import PHForm from "../../../components/form/PHForm";
+import PHInput from "../../../components/form/PHInput";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import z from "zod";
 
