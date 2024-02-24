@@ -7,17 +7,29 @@ import {
   useForm,
 } from "react-hook-form";
 
-type TFromProps = {
+type TFormConfig = {
+  resolver?: any;
+};
+
+type TFormProps = {
   onSubmit: SubmitHandler<FieldValues>;
   children: ReactNode;
-  resolver: any;
-};
-const PHForm = ({ onSubmit, children, resolver }: TFromProps) => {
-  const methods = useForm({ resolver });
+} & TFormConfig;
+
+const PHForm = ({ onSubmit, children, resolver }: TFormProps) => {
+  const formConfig: TFormConfig = {};
+  if (resolver) {
+    formConfig["resolver"] = resolver;
+  }
+  const methods = useForm(formConfig);
+  const submit: SubmitHandler<FieldValues> = (data) => {
+    onSubmit(data);
+    methods.reset();
+  };
 
   return (
     <FormProvider {...methods}>
-      <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
+      <Form layout="vertical" onFinish={methods.handleSubmit(submit)}>
         {children}
       </Form>
     </FormProvider>

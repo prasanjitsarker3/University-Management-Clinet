@@ -4,11 +4,15 @@ import AcademicFaculty from "../pages/Admin/AcademicManagement/AcademicFaculty/A
 import CreateAcademicFaculty from "../pages/Admin/AcademicManagement/AcademicFaculty/CreateAcademicFaculty";
 import AcademicSemester from "../pages/Admin/AcademicManagement/AcademicSemester/AcademicSemester";
 import CreateAcademicSemester from "../pages/Admin/AcademicManagement/AcademicSemester/CreateAcademicSemester";
+import CreateSemesterRegistration from "../pages/Admin/AcademicManagement/SemesterRegistration/CreateSemesterRegistration";
+import SemesterRegistration from "../pages/Admin/AcademicManagement/SemesterRegistration/SemesterRegistration";
 // import CreateAcademicSemester from "../pages/Admin/AcademicManagement/AcademicSemester/CreateAcademicSemester";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import CreateAdmin from "../pages/Admin/UserManagement/CreateAdmin";
 import CreateFaculty from "../pages/Admin/UserManagement/CreateFaculty";
 import CreateStudent from "../pages/Admin/UserManagement/Student/CreateStudent";
+import StudentDetails from "../pages/Admin/UserManagement/Student/StudentDetails";
+import StudentTable from "../pages/Admin/UserManagement/Student/StudentTable";
 
 export const adminRoutePaths = [
   {
@@ -68,6 +72,30 @@ export const adminRoutePaths = [
         name: "Create Student",
         path: "create-student",
         element: <CreateStudent />,
+      },
+      {
+        name: "All Student",
+        path: "all-student",
+        element: <StudentTable />,
+      },
+      {
+        path: "student-data/:studentId",
+        element: <StudentDetails />,
+      },
+    ],
+  },
+  {
+    name: "Course Management",
+    children: [
+      {
+        name: "Create Sem Register",
+        path: "create-semester-register",
+        element: <CreateSemesterRegistration />,
+      },
+      {
+        name: "Semester Register",
+        path: "semester-register",
+        element: <SemesterRegistration />,
       },
     ],
   },
