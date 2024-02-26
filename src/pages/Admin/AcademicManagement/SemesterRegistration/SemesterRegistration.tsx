@@ -1,7 +1,19 @@
-import { Button, Pagination, Space, Table, TableColumnsType } from "antd";
+import {
+  Button,
+  Dropdown,
+  MenuProps,
+  Pagination,
+  Space,
+  Table,
+  TableColumnsType,
+  Tag,
+} from "antd";
 import { useState } from "react";
 import { TSemRegisterData } from "./SemesterConstants";
-import { useGetAllSemesterRegistrationQuery } from "../../../../redux/features/Admin/Course/semesterRegisterApi";
+import {
+  useGetAllSemesterRegistrationQuery,
+  useUpdateSemesterRegisterMutation,
+} from "../../../../redux/features/Admin/Course/semesterRegisterApi";
 import moment from "moment";
 
 export type TTableData = Pick<
@@ -11,11 +23,13 @@ export type TTableData = Pick<
 
 const SemesterRegistration = () => {
   const [page, setPage] = useState(1);
+  const [dataId, setDataId] = useState("");
   const { data: semRegisterData, isFetching } =
     useGetAllSemesterRegistrationQuery([
       { name: "page", value: page },
-      { name: "sort", value: "startMonth" },
+      { name: "sort", value: "year" },
     ]);
+  const [updateSemesterUpdate] = useUpdateSemesterRegisterMutation();
   console.log(semRegisterData?.data);
   const metaData = semRegisterData?.meta;
 
@@ -35,6 +49,44 @@ const SemesterRegistration = () => {
       endDate: moment(new Date(endDate)).format("MMMM"),
     })
   );
+  const items: MenuProps["items"] = [
+    {
+      label: "UPCOMING",
+      key: "UPCOMING",
+    },
+    {
+      label: "ONGOING",
+      key: "ONGOING",
+    },
+    {
+      label: "ENDED",
+      key: "ENDED",
+    },
+  ];
+
+  const handleMenuClick: MenuProps["onClick"] = async (e) => {
+    const semesterUpdateData = {
+      id: dataId,
+      data: {
+        status: e.key,
+      },
+    };
+    console.log("Update Data", semesterUpdateData);
+    try {
+      const res = await updateSemesterUpdate(semesterUpdateData);
+      console.log("Res Data", res);
+    } catch (error) {
+      console.error(
+        "Error occurred while updating semester registration:",
+        error
+      );
+    }
+  };
+
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
 
   const columns: TableColumnsType<TTableData> = [
     {
@@ -46,6 +98,20 @@ const SemesterRegistration = () => {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      render: (item) => {
+        let color;
+        if (item === "UPCOMING") {
+          color = "blue";
+        }
+        if (item === "ONGOING") {
+          color = "green";
+        }
+        if (item === "ENDED") {
+          color = "red";
+        }
+
+        return <Tag color={color}>{item}</Tag>;
+      },
     },
     {
       title: "Start Month",
@@ -60,11 +126,15 @@ const SemesterRegistration = () => {
     {
       title: "Action",
       key: "x",
-      render: () => {
+      render: (item) => {
         return (
           <Space>
             <Button>Details</Button>
-            <Button type="primary">Update</Button>
+            <Dropdown menu={menuProps} trigger={["click"]}>
+              <Button onClick={() => setDataId(item._id)} type="primary">
+                Update
+              </Button>
+            </Dropdown>
             <Button type="primary" danger>
               Delete
             </Button>

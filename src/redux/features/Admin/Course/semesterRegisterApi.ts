@@ -2,7 +2,6 @@ import {
   TQueryParam,
   TResponseRedux,
 } from "../../../../Types/gobalErrorHandler";
-import { TSemRegisterData } from "../../../../pages/Admin/AcademicManagement/SemesterRegistration/SemesterConstants";
 import { baseApi } from "../../../api/baseApi";
 
 const academicSemesterApi = baseApi.injectEndpoints({
@@ -21,12 +20,13 @@ const academicSemesterApi = baseApi.injectEndpoints({
           params: params,
         };
       },
-      transformResponse: (response: TResponseRedux<TSemRegisterData>) => {
+      transformResponse: (response: TResponseRedux<any>) => {
         return {
           data: response.data,
           meta: response.meta,
         };
       },
+      providesTags: ["semester"],
     }),
     createSemesterRegister: builder.mutation({
       query: (data) => ({
@@ -34,6 +34,15 @@ const academicSemesterApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["semester"],
+    }),
+    updateSemesterRegister: builder.mutation({
+      query: (args) => ({
+        url: `/semester-registrations/${args.id}`,
+        method: "PATCH",
+        body: args.data,
+      }),
+      invalidatesTags: ["semester"],
     }),
   }),
 });
@@ -41,4 +50,5 @@ const academicSemesterApi = baseApi.injectEndpoints({
 export const {
   useCreateSemesterRegisterMutation,
   useGetAllSemesterRegistrationQuery,
+  useUpdateSemesterRegisterMutation,
 } = academicSemesterApi;

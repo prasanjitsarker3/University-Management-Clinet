@@ -33,11 +33,15 @@ const Login = () => {
         password: data.password,
       };
       const res = await login(userInfo).unwrap();
+      console.log("Response:", res);
       const user = verifyToken(res.data.accessToken) as TUser;
-      console.log("Users", user);
       dispatch(setUser({ user: user, token: res.data.accessToken }));
       toast.success("User Login Success", { id: toastId, duration: 2000 });
-      navigate(`/${user.role}/dashboard`);
+      if (res?.data.needsPasswordChange) {
+        navigate("/change-password");
+      } else {
+        navigate(`/${user.role}/dashboard`);
+      }
     } catch (err) {
       console.log(err);
       toast.error("Something is wrong", { id: toastId, duration: 2000 });

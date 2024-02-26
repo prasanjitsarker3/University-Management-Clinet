@@ -2,7 +2,7 @@ import {
   TQueryParam,
   TResponseRedux,
 } from "../../../../Types/gobalErrorHandler";
-import { TSemesterDataType } from "../../../../pages/Admin/AcademicManagement/AcademicSemester/AcademicSemester";
+// import { TSemesterDataType } from "../../../../pages/Admin/AcademicManagement/AcademicSemester/AcademicSemester";
 import { baseApi } from "../../../api/baseApi";
 
 const academicSemesterApi = baseApi.injectEndpoints({
@@ -21,7 +21,7 @@ const academicSemesterApi = baseApi.injectEndpoints({
           params: params,
         };
       },
-      transformResponse: (response: TResponseRedux<TSemesterDataType>) => {
+      transformResponse: (response: TResponseRedux<any>) => {
         return {
           data: response.data,
           meta: response.meta,

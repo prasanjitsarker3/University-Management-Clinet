@@ -20,9 +20,7 @@ const CreateAcademicFaculty = () => {
       name: data.name,
     };
     try {
-      const res = (await createAcademicFaculty(
-        facultyData
-      )) as TResponse<TFaculty>;
+      const res = (await createAcademicFaculty(facultyData)) as TResponse<any>;
       console.log(res);
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId, duration: 2000 });

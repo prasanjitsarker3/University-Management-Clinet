@@ -4,6 +4,10 @@ import AcademicFaculty from "../pages/Admin/AcademicManagement/AcademicFaculty/A
 import CreateAcademicFaculty from "../pages/Admin/AcademicManagement/AcademicFaculty/CreateAcademicFaculty";
 import AcademicSemester from "../pages/Admin/AcademicManagement/AcademicSemester/AcademicSemester";
 import CreateAcademicSemester from "../pages/Admin/AcademicManagement/AcademicSemester/CreateAcademicSemester";
+import AllCourse from "../pages/Admin/AcademicManagement/Course/AllCourse";
+import AllOfferCourse from "../pages/Admin/AcademicManagement/Course/AllOfferCourse";
+import CreateCourse from "../pages/Admin/AcademicManagement/Course/CreateCourse";
+import CreateOfferedCourse from "../pages/Admin/AcademicManagement/Course/CreateOfferedCourse";
 import CreateSemesterRegistration from "../pages/Admin/AcademicManagement/SemesterRegistration/CreateSemesterRegistration";
 import SemesterRegistration from "../pages/Admin/AcademicManagement/SemesterRegistration/SemesterRegistration";
 // import CreateAcademicSemester from "../pages/Admin/AcademicManagement/AcademicSemester/CreateAcademicSemester";
@@ -96,6 +100,26 @@ export const adminRoutePaths = [
         name: "Semester Register",
         path: "semester-register",
         element: <SemesterRegistration />,
+      },
+      {
+        name: "Create Course",
+        path: "create-course",
+        element: <CreateCourse />,
+      },
+      {
+        name: "All Course",
+        path: "all-course",
+        element: <AllCourse />,
+      },
+      {
+        name: "Create Offer Course",
+        path: "create-offered-course",
+        element: <CreateOfferedCourse />,
+      },
+      {
+        name: "All Offer Course",
+        path: "all-offered-course",
+        element: <AllOfferCourse />,
       },
     ],
   },
